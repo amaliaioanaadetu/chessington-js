@@ -23,14 +23,9 @@ export default class Pawn extends Piece {
                     }
 
                 }
-                // console.log(currentPiece instanceof Queen)
             }
         }
 
-
-        // board.findPiece(board.currentPlayer)
-        // let square = Square.at(0, 0)
-        // console.log(board[square.row][square.col])
         return moves;
     }
 }
