@@ -16,10 +16,22 @@ export default class Pawn extends Piece {
                 let currentPiece = board.getPiece(new Square(row, col))
                 if (currentPiece instanceof Pawn){
                     if (currentPiece.player === Player.WHITE){
-                        moves.push(Square.at(row + 1, col))
+                        if (row === 1){
+                            moves.push(Square.at(row + 2, col))
+                        }
+                        if (row + 1 < 8){
+                            moves.push(Square.at(row + 1, col))
+                        }
+
                     }
                     else{
-                        moves.push(Square.at(row - 1, col))
+                        if (row === 6){
+                            moves.push(Square.at(row - 2, col))
+                        }
+                        if (row - 1 >= 0){
+                            moves.push(Square.at(row - 1, col))
+                        }
+
                     }
 
                 }
