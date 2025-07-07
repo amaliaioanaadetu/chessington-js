@@ -3,6 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from "../square";
 import gameSettings from "../gameSettings";
+import King from "./king";
 
 export default class Rook extends Piece {
     public constructor(player: Player) {
@@ -15,33 +16,46 @@ export default class Rook extends Piece {
             for (let col = 0; col < 8; col++) {
                 let currentPiece = board.getPiece(new Square(row, col))
                 if (currentPiece instanceof Rook){
-                    for (let r = row - 1; r >= 0; r--){
-                        if (board.getPiece(new Square(r, col)) !== undefined){
-                            break;
+                    // for (let r = 0; r >= 0; r--){
+                    //     if (r !== row)
+                    //     if (board.getPiece(new Square(r, col)) !== undefined && (board.getPiece(new Square(r, col)))?.player !== currentPiece.player ){
+                    //         moves.push(Square.at(r, col))
+                    //         break;
+                    //     }
+                    //     moves.push(Square.at(r, col))
+                    // }
+
+                    for (let r = 0; r < gameSettings.BOARD_SIZE; r++){
+                        if (r !== row){
+                            if (board.getPiece(new Square(r, col)) !== undefined){
+                                if ((board.getPiece(new Square(r, col)))?.player !== currentPiece.player && !(board.getPiece(new Square(r, col)) instanceof King))
+                                    moves.push(Square.at(r, col))
+                                break;
+                            }
+                            moves.push(Square.at(r, col))
                         }
-                        moves.push(Square.at(r, col))
+
                     }
 
-                    for (let r = row + 1; r < gameSettings.BOARD_SIZE; r++){
-                        if (board.getPiece(new Square(r, col)) !== undefined){
-                            break;
+                    for (let c = 0; c < gameSettings.BOARD_SIZE; c++ ){
+                        if (c !== col){
+                            if (board.getPiece(new Square(row, c)) !== undefined){
+                                if ((board.getPiece(new Square(row, c)))?.player !== currentPiece.player && !(board.getPiece(new Square(row, c)) instanceof King))
+                                    moves.push(Square.at(row, c))
+                                break;
+                            }
+                            moves.push(Square.at(row, c))
                         }
-                        moves.push(Square.at(r, col))
                     }
 
-                    for (let c = col + 1; c < gameSettings.BOARD_SIZE; c++){
-                        if (board.getPiece(new Square(row, c)) !== undefined){
-                            break;
-                        }
-                        moves.push(Square.at(row, c))
-                    }
-
-                    for (let c = col - 1; c >= 0; c--){
-                        if (board.getPiece(new Square(row, c)) !== undefined){
-                            break;
-                        }
-                        moves.push(Square.at(row, c))
-                    }
+                    // for (let c = col - 1; c >= 0; c--){
+                    //     if (board.getPiece(new Square(row, c)) !== undefined){
+                    //         if ((board.getPiece(new Square(row, c)))?.player !== currentPiece.player )
+                    //             moves.push(Square.at(row, c))
+                    //         break;
+                    //     }
+                    //     moves.push(Square.at(row, c))
+                    // }
 
                 }
             }
