@@ -11,12 +11,10 @@ export default class Pawn extends Piece {
 
     public getAvailableMoves(board: Board) {
         let moves = [];
-        console.log(board)
         for (let row = 0; row < gameSettings.BOARD_SIZE; row++) {
             for (let col = 0; col < gameSettings.BOARD_SIZE; col++) {
                 let currentPiece = board.getPiece(new Square(row, col))
                 if (currentPiece instanceof Pawn){
-                    console.log(row, col)
                     if (currentPiece.player === Player.WHITE){
                         if (row + 1 < gameSettings.BOARD_SIZE && board.getPiece(new Square(row + 1, col)) === undefined){
                             moves.push(Square.at(row + 1, col))
