@@ -16,30 +16,59 @@ export default class Queen extends Piece {
                 let currentPiece = board.getPiece(new Square(row, col))
                 if (currentPiece instanceof Queen){
                     for (let squares = 1; squares <= row && squares <= col; squares++){
+                        if (board.getPiece(new Square(row - squares, col - squares)) !== undefined){
+                            break;
+                        }
                         moves.push(Square.at(row - squares, col - squares))
                     }
 
                     for (let squares = 1; squares < gameSettings.BOARD_SIZE - row && squares < gameSettings.BOARD_SIZE - col; squares++){
+                        if (board.getPiece(new Square(row + squares, col + squares)) !== undefined){
+                            break;
+                        }
                         moves.push(Square.at(row + squares, col + squares))
                     }
 
                     for (let squares = 1; squares <= row && gameSettings.BOARD_SIZE - col; squares++){
+                        if (board.getPiece(new Square(row - squares, col + squares)) !== undefined){
+                            break;
+                        }
                         moves.push(Square.at(row - squares, col + squares))
                     }
 
-                    for (let squares = 1; gameSettings.BOARD_SIZE - row && squares <= col; squares++){
+                    for (let squares = 1; squares < gameSettings.BOARD_SIZE - row && squares <= col; squares++){
+                        if (board.getPiece(new Square(row + squares, col - squares)) !== undefined){
+                            break;
+                        }
                         moves.push(Square.at(row + squares, col - squares))
                     }
 
-                    for (let r = 0; r < gameSettings.BOARD_SIZE; r++){
-                        if (r !== row){
-                            moves.push(Square.at(r, col))
+                    for (let r = row - 1; r >= 0; r--){
+                        if (board.getPiece(new Square(r, col)) !== undefined){
+                            break;
                         }
+                        moves.push(Square.at(r, col))
                     }
-                    for (let c = 0; c < gameSettings.BOARD_SIZE; c++){
-                        if (c !== col){
-                            moves.push(Square.at(row, c))
+
+                    for (let r = row + 1; r < gameSettings.BOARD_SIZE; r++){
+                        if (board.getPiece(new Square(r, col)) !== undefined){
+                            break;
                         }
+                        moves.push(Square.at(r, col))
+                    }
+
+                    for (let c = col + 1; c < gameSettings.BOARD_SIZE; c++){
+                        if (board.getPiece(new Square(row, c)) !== undefined){
+                            break;
+                        }
+                        moves.push(Square.at(row, c))
+                    }
+
+                    for (let c = col - 1; c >= 0; c--){
+                        if (board.getPiece(new Square(row, c)) !== undefined){
+                            break;
+                        }
+                        moves.push(Square.at(row, c))
                     }
 
                 }
