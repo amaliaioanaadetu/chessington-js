@@ -1,1 +1,0 @@
-for available moves, I should go trough the whole board for that player and push moves for every piece
