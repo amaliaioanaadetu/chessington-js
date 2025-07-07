@@ -1,6 +1,8 @@
 import Piece from './piece';
 import Player from '../player';
 import Board from '../board';
+import Square from "../square";
+import gameSettings from "../gameSettings";
 
 export default class Queen extends Piece {
     public constructor(player: Player) {
@@ -8,6 +10,42 @@ export default class Queen extends Piece {
     }
 
     public getAvailableMoves(board: Board) {
-        return new Array(0);
+        let moves = [];
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                let currentPiece = board.getPiece(new Square(row, col))
+                if (currentPiece instanceof Queen){
+                    for (let squares = 1; squares <= row && squares <= col; squares++){
+                        moves.push(Square.at(row - squares, col - squares))
+                    }
+
+                    for (let squares = 1; squares < gameSettings.BOARD_SIZE - row && squares < gameSettings.BOARD_SIZE - col; squares++){
+                        moves.push(Square.at(row + squares, col + squares))
+                    }
+
+                    for (let squares = 1; squares <= row && gameSettings.BOARD_SIZE - col; squares++){
+                        moves.push(Square.at(row - squares, col + squares))
+                    }
+
+                    for (let squares = 1; gameSettings.BOARD_SIZE - row && squares <= col; squares++){
+                        moves.push(Square.at(row + squares, col - squares))
+                    }
+
+                    for (let r = 0; r < gameSettings.BOARD_SIZE; r++){
+                        if (r !== row){
+                            moves.push(Square.at(r, col))
+                        }
+                    }
+                    for (let c = 0; c < gameSettings.BOARD_SIZE; c++){
+                        if (c !== col){
+                            moves.push(Square.at(row, c))
+                        }
+                    }
+
+                }
+            }
+        }
+
+        return moves;
     }
 }
