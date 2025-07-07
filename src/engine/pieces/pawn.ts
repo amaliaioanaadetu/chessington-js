@@ -3,6 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from "../square";
 import gameSettings from "../gameSettings";
+import King from "./king";
 
 export default class Pawn extends Piece {
     public constructor(player: Player) {
@@ -26,7 +27,15 @@ export default class Pawn extends Piece {
                             moves.push(Square.at(row + 2, col))
                         }
 
+                        if (row + 1 < gameSettings.BOARD_SIZE && col + 1 < gameSettings.BOARD_SIZE && board.getPiece(new Square(row + 1, col + 1)) !== undefined && (board.getPiece(new Square(row + 1, col + 1)))?.player !== currentPiece.player){
+                            if (!(board.getPiece(new Square(row + 1, col + 1)) instanceof King))
+                                moves.push(Square.at(row + 1, col + 1))
+                        }
 
+                        if (row + 1 < gameSettings.BOARD_SIZE && col - 1 >= 0 && board.getPiece(new Square(row + 1, col - 1)) !== undefined && (board.getPiece(new Square(row + 1, col - 1)))?.player !== currentPiece.player){
+                            if (!(board.getPiece(new Square(row + 1, col - 1)) instanceof King))
+                                moves.push(Square.at(row + 1, col - 1))
+                        }
                     }
                     else{
                         if (row - 1 >= 0 && board.getPiece(new Square(row - 1, col)) === undefined){
@@ -38,6 +47,16 @@ export default class Pawn extends Piece {
 
                         if (row === gameSettings.BOARD_SIZE - 2 && board.getPiece(new Square(row - 2, col)) === undefined){
                             moves.push(Square.at(row - 2, col))
+                        }
+
+                        if (row - 1 >= 0 && col + 1 < gameSettings.BOARD_SIZE && board.getPiece(new Square(row - 1, col + 1)) !== undefined && (board.getPiece(new Square(row - 1, col + 1)))?.player !== currentPiece.player){
+                            if (!(board.getPiece(new Square(row - 1, col + 1)) instanceof King))
+                                moves.push(Square.at(row - 1, col + 1))
+                        }
+
+                        if (row - 1 >= 0 && col - 1 >= 0 && board.getPiece(new Square(row - 1, col - 1)) !== undefined && (board.getPiece(new Square(row - 1, col - 1)))?.player !== currentPiece.player){
+                            if (!(board.getPiece(new Square(row - 1, col - 1)) instanceof King))
+                                moves.push(Square.at(row - 1, col - 1))
                         }
 
 
