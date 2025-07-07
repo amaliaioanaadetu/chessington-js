@@ -16,15 +16,6 @@ export default class Rook extends Piece {
             for (let col = 0; col < 8; col++) {
                 let currentPiece = board.getPiece(new Square(row, col))
                 if (currentPiece instanceof Rook){
-                    // for (let r = 0; r >= 0; r--){
-                    //     if (r !== row)
-                    //     if (board.getPiece(new Square(r, col)) !== undefined && (board.getPiece(new Square(r, col)))?.player !== currentPiece.player ){
-                    //         moves.push(Square.at(r, col))
-                    //         break;
-                    //     }
-                    //     moves.push(Square.at(r, col))
-                    // }
-
                     for (let r = 0; r < gameSettings.BOARD_SIZE; r++){
                         if (r !== row){
                             if (board.getPiece(new Square(r, col)) !== undefined){
@@ -47,16 +38,6 @@ export default class Rook extends Piece {
                             moves.push(Square.at(row, c))
                         }
                     }
-
-                    // for (let c = col - 1; c >= 0; c--){
-                    //     if (board.getPiece(new Square(row, c)) !== undefined){
-                    //         if ((board.getPiece(new Square(row, c)))?.player !== currentPiece.player )
-                    //             moves.push(Square.at(row, c))
-                    //         break;
-                    //     }
-                    //     moves.push(Square.at(row, c))
-                    // }
-
                 }
             }
         }
